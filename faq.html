@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apply — NextOne Fellowship</title>
+  <title>FAQ — NextOne Fellowship</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,155 +213,125 @@
       font-size: 16px;
       font-weight: 600;
       color: var(--text);
+      text-align: center;
     }
     .mobile-cta {
       padding: 16px 24px 24px;
     }
     .mobile-cta .btn { width: 100%; }
 
-    /* ─── APPLY PAGE LAYOUT ────────────────────────── */
-    .apply-page {
-      padding-top: calc(var(--nav-h) + 72px);
-      padding-bottom: 100px;
+    /* ─── FAQ PAGE LAYOUT ──────────────────────────── */
+    .faq-page {
+      padding-top: calc(var(--nav-h) + 80px);
+      padding-bottom: 120px;
     }
 
-    .apply-inner {
-      max-width: 680px;
+    .faq-inner {
+      max-width: 740px;
       margin: 0 auto;
     }
 
-    .apply-heading {
-      font-size: clamp(28px, 4vw, 40px);
+    .faq-heading {
+      font-size: clamp(28px, 4vw, 42px);
       font-weight: 800;
       letter-spacing: -0.03em;
       margin-bottom: 14px;
       color: var(--text);
     }
 
-    .apply-sub {
+    .faq-sub {
       font-family: 'Source Sans 3', sans-serif;
       font-size: 17px;
       color: var(--text-muted);
       line-height: 1.65;
-      margin-bottom: 48px;
+      margin-bottom: 52px;
     }
 
-    .apply-divider {
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 48px;
+    /* ─── ACCORDION ────────────────────────────────── */
+    .accordion {
+      border-top: 1px solid var(--border);
     }
 
-    /* ─── FORM ─────────────────────────────────────── */
-    .apply-form {
+    .accordion-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .accordion-trigger {
       display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .field-group label {
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 15px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      padding: 16px 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: 'Sora', sans-serif;
+      font-size: 16px;
       font-weight: 600;
       color: var(--text);
-      line-height: 1.3;
+      line-height: 1.4;
+      transition: background 0.18s ease;
     }
 
-    .apply-form input,
-    .apply-form select,
-    .apply-form textarea {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid var(--border);
-      border-radius: 6px;
+    .accordion-trigger:hover {
+      background: rgba(26, 61, 143, 0.04);
+    }
+
+    .accordion-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      position: relative;
+      color: var(--accent);
+    }
+
+    .accordion-icon::before,
+    .accordion-icon::after {
+      content: '';
+      position: absolute;
+      background: currentColor;
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    /* horizontal bar (always visible) */
+    .accordion-icon::before {
+      width: 12px;
+      height: 2px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* vertical bar (the plus part) */
+    .accordion-icon::after {
+      width: 2px;
+      height: 12px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* when open, hide the vertical bar (minus state) */
+    .accordion-item.open .accordion-icon::after {
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .accordion-body-inner {
+      padding: 0 20px 20px;
       font-family: 'Source Sans 3', sans-serif;
       font-size: 16px;
-      color: var(--text);
-      background: var(--white);
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-      appearance: none;
-      -webkit-appearance: none;
-    }
-
-    .apply-form input::placeholder,
-    .apply-form textarea::placeholder {
-      color: #a8a8be;
-    }
-
-    .apply-form input:focus,
-    .apply-form select:focus,
-    .apply-form textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(26, 61, 143, 0.12);
-    }
-
-    .apply-form select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2352526a' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-      padding-right: 40px;
-      cursor: pointer;
-      color: var(--text);
-    }
-
-    .apply-form select:invalid,
-    .apply-form select option[value=""] {
-      color: #a8a8be;
-    }
-
-    .apply-form textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .apply-form-footer {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .apply-form button[type="submit"] {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 36px;
-      background: var(--accent);
-      color: var(--white);
-      border: 2px solid var(--accent);
-      border-radius: 6px;
-      font-family: 'Sora', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.025em;
-      cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-      align-self: flex-start;
-      line-height: 1;
-    }
-    .apply-form button[type="submit"]:hover {
-      background: var(--accent-hover);
-      border-color: var(--accent-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(26, 61, 143, 0.32);
-    }
-    .apply-form button[type="submit"]:active {
-      background: var(--accent-active);
-      border-color: var(--accent-active);
-      transform: translateY(0);
-      box-shadow: none;
-    }
-
-    .apply-form-note {
-      font-size: 13px;
       color: var(--text-muted);
-      margin: 0;
+      line-height: 1.72;
     }
 
     /* ─── FOOTER ──────────────────────────────────── */
@@ -465,11 +435,7 @@
       .nav-links, .nav-right > .btn { display: none; }
       .hamburger { display: flex; }
 
-      #mobile-menu ul li a { text-align: center; }
-
-      .apply-page { padding-top: calc(var(--nav-h) + 48px); padding-bottom: 72px; }
-
-      .apply-form button[type="submit"] { align-self: stretch; width: 100%; }
+      .faq-page { padding-top: calc(var(--nav-h) + 48px); padding-bottom: 80px; }
 
       .footer-top { grid-template-columns: 1fr; gap: 44px; }
       .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
@@ -493,8 +459,8 @@
         <ul class="nav-links">
           <li><a href="index.html#about">About</a></li>
           <li><a href="index.html#how-it-works">How It Works</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="apply.html" class="active">Apply</a></li>
+          <li><a href="faq.html" class="active">FAQ</a></li>
+          <li><a href="apply.html">Apply</a></li>
         </ul>
         <a href="apply.html" class="btn btn-primary">Apply Now</a>
       </div>
@@ -519,78 +485,126 @@
     </div>
   </div>
 
-  <!-- ░░ APPLY PAGE ░░ -->
-  <main class="apply-page">
+  <!-- ░░ FAQ PAGE ░░ -->
+  <main class="faq-page">
     <div class="container">
-      <div class="apply-inner">
+      <div class="faq-inner">
 
-        <h1 class="apply-heading">Apply to NextOne Fellowship</h1>
-        <p class="apply-sub">A small cohort of collegiate club athletes will be selected. Free to apply, free to participate.</p>
+        <h1 class="faq-heading">FAQ</h1>
 
-        <div class="apply-divider"></div>
+        <div class="accordion" id="faq-accordion">
 
-        <form class="apply-form" action="https://formspree.io/f/mvkpqkdr" method="POST">
-
-          <input type="hidden" name="_next" value="index.html" />
-
-          <div class="field-group">
-            <label for="full_name">Full Name</label>
-            <input type="text" id="full_name" name="full_name" required />
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              Who is NextOne Fellowship for?
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-body" role="region">
+              <div class="accordion-body-inner">NextOne is for university students who compete in a collegiate club sport. Any school, any sport.</div>
+            </div>
           </div>
 
-          <div class="field-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required />
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              How much does it cost?
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-body" role="region">
+              <div class="accordion-body-inner">Nothing. NextOne is completely free to apply and participate in.</div>
+            </div>
           </div>
 
-          <div class="field-group">
-            <label for="university">University</label>
-            <input type="text" id="university" name="university" placeholder="e.g. UNC Charlotte" required />
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              What is the time commitment?
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-body" role="region">
+              <div class="accordion-body-inner">About 1 hour per month for the group session, plus 1 to 3 hour-long guest speaker sessions throughout the cohort. The 1-on-1 coaching is optional, flexible, and scheduled around you.</div>
+            </div>
           </div>
 
-          <div class="field-group">
-            <label for="year_in_school">Year in School</label>
-            <select id="year_in_school" name="year_in_school" required>
-              <option value="" disabled selected>Select your year</option>
-              <option value="Freshman">Freshman</option>
-              <option value="Sophomore">Sophomore</option>
-              <option value="Junior">Junior</option>
-              <option value="Senior">Senior</option>
-              <option value="Graduate Student">Graduate Student</option>
-            </select>
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              When are the meetings held?
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-body" role="region">
+              <div class="accordion-body-inner">All sessions are held in the evenings to work around your class and practice schedule. Exact times are coordinated with each cohort before the program begins.</div>
+            </div>
           </div>
 
-          <div class="field-group">
-            <label for="sport">Sport</label>
-            <input type="text" id="sport" name="sport" placeholder="e.g. Volleyball" required />
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              What happens after the program ends?
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-body" role="region">
+              <div class="accordion-body-inner">Every fellow who completes the program is added to the NextOne Alumni Network on LinkedIn, an exclusive group of fellows and professionals you can tap into anytime.</div>
+            </div>
           </div>
 
-          <div class="field-group">
-            <label for="job_type">What are you looking for?</label>
-            <select id="job_type" name="job_type" required>
-              <option value="" disabled selected>Select an option</option>
-              <option value="Internship">Internship</option>
-              <option value="Full-Time Job">Full-Time Job</option>
-              <option value="Both">Both</option>
-            </select>
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              Do I need to go to a specific school to apply?
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-body" role="region">
+              <div class="accordion-body-inner">No. NextOne is not school specific. If you compete in a collegiate club sport, you are eligible to apply.</div>
+            </div>
           </div>
 
-          <div class="field-group">
-            <label for="career_challenge">What is your biggest career challenge right now?</label>
-            <textarea id="career_challenge" name="career_challenge" required></textarea>
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              What sports are eligible?
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-body" role="region">
+              <div class="accordion-body-inner">Any collegiate club sport. If you compete at the club level, you qualify.</div>
+            </div>
           </div>
 
-          <div class="field-group">
-            <label for="why_nextone">Why do you want to be part of NextOne?</label>
-            <textarea id="why_nextone" name="why_nextone" required></textarea>
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              When does Cohort 1 start?
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-body" role="region">
+              <div class="accordion-body-inner">September 2026.</div>
+            </div>
           </div>
 
-          <div class="apply-form-footer">
-            <button type="submit">Submit Application</button>
-            <p class="apply-form-note">Applications are reviewed on a rolling basis.</p>
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              What are the guest speaker sessions like?
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-body" role="region">
+              <div class="accordion-body-inner">Guest speakers walk through their own journey and open the floor for questions.</div>
+            </div>
           </div>
 
-        </form>
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              What is the 1-on-1 coaching like?
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-body" role="region">
+              <div class="accordion-body-inner">It is whatever you need. Resume review, mock interviews, career advice, open conversation. You decide.</div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              Do I need a resume to apply?
+              <span class="accordion-icon" aria-hidden="true"></span>
+            </button>
+            <div class="accordion-body" role="region">
+              <div class="accordion-body-inner">No. You do not need a resume to apply. That is exactly what we are here to help you build.</div>
+            </div>
+          </div>
+
+        </div>
 
       </div>
     </div>
@@ -634,7 +648,6 @@
       </div>
       <div class="footer-bottom">
         <span class="footer-copy">&copy; 2026 NextOne Fellowship. All rights reserved.</span>
-        <span class="footer-copy">Charlotte, NC</span>
       </div>
     </div>
   </footer>
@@ -667,6 +680,32 @@
 
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') closeMenu();
+      });
+
+      /* ── Accordion ────────────────────────────────── */
+      const items = document.querySelectorAll('.accordion-item');
+
+      items.forEach(item => {
+        const trigger = item.querySelector('.accordion-trigger');
+        const body = item.querySelector('.accordion-body');
+
+        trigger.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+
+          /* Close all */
+          items.forEach(i => {
+            i.classList.remove('open');
+            i.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+            i.querySelector('.accordion-body').style.maxHeight = null;
+          });
+
+          /* If it was closed, open it */
+          if (!isOpen) {
+            item.classList.add('open');
+            trigger.setAttribute('aria-expanded', 'true');
+            body.style.maxHeight = body.scrollHeight + 'px';
+          }
+        });
       });
 
     }());
