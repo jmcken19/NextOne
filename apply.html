@@ -252,6 +252,37 @@
       margin-bottom: 48px;
     }
 
+    /* ─── APPLY TYPE TABS ──────────────────────────── */
+    .apply-type-tabs {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      margin-bottom: 40px;
+    }
+    .apply-type-tab {
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 100px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .apply-type-tab:hover { color: var(--text); }
+    .apply-type-tab.active {
+      background: var(--accent);
+      color: var(--white);
+    }
+    .apply-panel[hidden] { display: none; }
+
     /* ─── FORM ─────────────────────────────────────── */
     .apply-form {
       display: flex;
@@ -469,6 +500,9 @@
 
       .apply-page { padding-top: calc(var(--nav-h) + 48px); padding-bottom: 72px; }
 
+      .apply-type-tabs { display: flex; width: 100%; }
+      .apply-type-tab { flex: 1; padding: 10px 8px; }
+
       .apply-form button[type="submit"] { align-self: stretch; width: 100%; }
 
       .footer-top { grid-template-columns: 1fr; gap: 44px; }
@@ -524,73 +558,203 @@
     <div class="container">
       <div class="apply-inner">
 
-        <h1 class="apply-heading">Apply to NextOne Fellowship</h1>
-        <p class="apply-sub">A small cohort of collegiate club athletes will be selected. Free to apply, free to participate.</p>
+        <div class="apply-type-tabs" role="tablist" aria-label="Application type">
+          <button type="button" class="apply-type-tab active" data-panel="fellow" role="tab" aria-selected="true">Fellow</button>
+          <button type="button" class="apply-type-tab" data-panel="speaker" role="tab" aria-selected="false">Guest Speaker</button>
+          <button type="button" class="apply-type-tab" data-panel="leader" role="tab" aria-selected="false">Cohort Leader</button>
+        </div>
 
-        <div class="apply-divider"></div>
+        <!-- ░ FELLOW APPLICATION ░ -->
+        <div class="apply-panel" data-panel="fellow">
 
-        <form class="apply-form" action="https://formspree.io/f/mvkpqkdr" method="POST">
+          <h1 class="apply-heading">Apply to NextOne Fellowship</h1>
+          <p class="apply-sub">A small cohort of collegiate club athletes will be selected. Free to apply, free to participate.</p>
 
-          <input type="hidden" name="_next" value="index.html" />
+          <div class="apply-divider"></div>
 
-          <div class="field-group">
-            <label for="full_name">Full Name</label>
-            <input type="text" id="full_name" name="full_name" required />
-          </div>
+          <form class="apply-form" action="https://formspree.io/f/mvkpqkdr" method="POST">
 
-          <div class="field-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required />
-          </div>
+            <input type="hidden" name="_next" value="index.html" />
+            <input type="hidden" name="_subject" value="New Fellow Application - NextOne" />
+            <input type="hidden" name="application_type" value="Fellow" />
 
-          <div class="field-group">
-            <label for="university">University</label>
-            <input type="text" id="university" name="university" placeholder="e.g. UNC Charlotte" required />
-          </div>
+            <div class="field-group">
+              <label for="full_name">Full Name</label>
+              <input type="text" id="full_name" name="full_name" required />
+            </div>
 
-          <div class="field-group">
-            <label for="year_in_school">Year in School</label>
-            <select id="year_in_school" name="year_in_school" required>
-              <option value="" disabled selected>Select your year</option>
-              <option value="Freshman">Freshman</option>
-              <option value="Sophomore">Sophomore</option>
-              <option value="Junior">Junior</option>
-              <option value="Senior">Senior</option>
-              <option value="Graduate Student">Graduate Student</option>
-            </select>
-          </div>
+            <div class="field-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required />
+            </div>
 
-          <div class="field-group">
-            <label for="sport">Sport</label>
-            <input type="text" id="sport" name="sport" placeholder="e.g. Volleyball" required />
-          </div>
+            <div class="field-group">
+              <label for="university">University</label>
+              <input type="text" id="university" name="university" placeholder="e.g. UNC Charlotte" required />
+            </div>
 
-          <div class="field-group">
-            <label for="job_type">What are you looking for?</label>
-            <select id="job_type" name="job_type" required>
-              <option value="" disabled selected>Select an option</option>
-              <option value="Internship">Internship</option>
-              <option value="Full-Time Job">Full-Time Job</option>
-              <option value="Both">Both</option>
-            </select>
-          </div>
+            <div class="field-group">
+              <label for="year_in_school">Year in School</label>
+              <select id="year_in_school" name="year_in_school" required>
+                <option value="" disabled selected>Select your year</option>
+                <option value="Freshman">Freshman</option>
+                <option value="Sophomore">Sophomore</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior">Senior</option>
+                <option value="Graduate Student">Graduate Student</option>
+              </select>
+            </div>
 
-          <div class="field-group">
-            <label for="career_challenge">What is your biggest career challenge right now?</label>
-            <textarea id="career_challenge" name="career_challenge" required></textarea>
-          </div>
+            <div class="field-group">
+              <label for="sport">Sport</label>
+              <input type="text" id="sport" name="sport" placeholder="e.g. Volleyball" required />
+            </div>
 
-          <div class="field-group">
-            <label for="why_nextone">Why do you want to be part of NextOne?</label>
-            <textarea id="why_nextone" name="why_nextone" required></textarea>
-          </div>
+            <div class="field-group">
+              <label for="job_type">What are you looking for?</label>
+              <select id="job_type" name="job_type" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="Internship">Internship</option>
+                <option value="Full-Time Job">Full-Time Job</option>
+                <option value="Both">Both</option>
+              </select>
+            </div>
 
-          <div class="apply-form-footer">
-            <button type="submit">Submit Application</button>
-            <p class="apply-form-note">Applications are reviewed on a rolling basis.</p>
-          </div>
+            <div class="field-group">
+              <label for="career_challenge">What is your biggest career challenge right now?</label>
+              <textarea id="career_challenge" name="career_challenge" required></textarea>
+            </div>
 
-        </form>
+            <div class="field-group">
+              <label for="why_nextone">Why do you want to be part of NextOne?</label>
+              <textarea id="why_nextone" name="why_nextone" required></textarea>
+            </div>
+
+            <div class="apply-form-footer">
+              <button type="submit">Submit Application</button>
+              <p class="apply-form-note">Applications are reviewed on a rolling basis.</p>
+            </div>
+
+          </form>
+
+        </div>
+
+        <!-- ░ GUEST SPEAKER APPLICATION ░ -->
+        <div class="apply-panel" data-panel="speaker" hidden>
+
+          <h1 class="apply-heading">Apply to Speak</h1>
+          <p class="apply-sub">Share your experience with a cohort of collegiate club athletes building their careers. Guest speakers join one virtual session to share their story and insight.</p>
+
+          <div class="apply-divider"></div>
+
+          <form class="apply-form" action="https://formspree.io/f/mvkpqkdr" method="POST">
+
+            <input type="hidden" name="_next" value="index.html" />
+            <input type="hidden" name="_subject" value="New Guest Speaker Application - NextOne" />
+            <input type="hidden" name="application_type" value="Guest Speaker" />
+
+            <div class="field-group">
+              <label for="speaker_full_name">Full Name</label>
+              <input type="text" id="speaker_full_name" name="full_name" required />
+            </div>
+
+            <div class="field-group">
+              <label for="speaker_email">Email Address</label>
+              <input type="email" id="speaker_email" name="email" required />
+            </div>
+
+            <div class="field-group">
+              <label for="speaker_role">Current Role &amp; Company/Organization</label>
+              <input type="text" id="speaker_role" name="current_role" placeholder="e.g. Recruiter at Acme Co." required />
+            </div>
+
+            <div class="field-group">
+              <label for="speaker_linkedin">LinkedIn Profile (optional)</label>
+              <input type="url" id="speaker_linkedin" name="linkedin_url" placeholder="https://linkedin.com/in/..." />
+            </div>
+
+            <div class="field-group">
+              <label for="speaker_availability">Availability</label>
+              <select id="speaker_availability" name="availability" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="Flexible / Any Month">Flexible / Any Month</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="speaker_topic">What topic(s) would you want to speak about?</label>
+              <textarea id="speaker_topic" name="speaking_topic" required></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="speaker_why">Why do you want to speak to NextOne fellows?</label>
+              <textarea id="speaker_why" name="why_speak" required></textarea>
+            </div>
+
+            <div class="apply-form-footer">
+              <button type="submit">Submit Application</button>
+              <p class="apply-form-note">Speaker requests are reviewed on a rolling basis.</p>
+            </div>
+
+          </form>
+
+        </div>
+
+        <!-- ░ COHORT LEADER APPLICATION ░ -->
+        <div class="apply-panel" data-panel="leader" hidden>
+
+          <h1 class="apply-heading">Apply to Lead a Cohort</h1>
+          <p class="apply-sub">NextOne graduates can apply to come back and host a future cohort, passing on what they learned to the next class of fellows.</p>
+
+          <div class="apply-divider"></div>
+
+          <form class="apply-form" action="https://formspree.io/f/mvkpqkdr" method="POST">
+
+            <input type="hidden" name="_next" value="index.html" />
+            <input type="hidden" name="_subject" value="New Cohort Leader Application - NextOne" />
+            <input type="hidden" name="application_type" value="Cohort Leader" />
+
+            <div class="field-group">
+              <label for="leader_full_name">Full Name</label>
+              <input type="text" id="leader_full_name" name="full_name" required />
+            </div>
+
+            <div class="field-group">
+              <label for="leader_email">Email Address</label>
+              <input type="email" id="leader_email" name="email" required />
+            </div>
+
+            <div class="field-group">
+              <label for="leader_cohort">If you were a graduate of the program, which year?</label>
+              <input type="text" id="leader_cohort" name="graduated_cohort" placeholder="e.g. Fall 2026, or N/A" />
+            </div>
+
+            <div class="field-group">
+              <label for="leader_linkedin">LinkedIn Profile (optional)</label>
+              <input type="url" id="leader_linkedin" name="linkedin_url" placeholder="https://linkedin.com/in/..." />
+            </div>
+
+            <div class="field-group">
+              <label for="leader_experience">What leadership or mentorship experience do you bring?</label>
+              <textarea id="leader_experience" name="leadership_experience" required></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="leader_why">Why do you want to host a future cohort?</label>
+              <textarea id="leader_why" name="why_lead" required></textarea>
+            </div>
+
+            <div class="apply-form-footer">
+              <button type="submit">Submit Application</button>
+              <p class="apply-form-note">Cohort leader applications are reviewed on a rolling basis.</p>
+            </div>
+
+          </form>
+
+        </div>
 
       </div>
     </div>
@@ -668,6 +832,37 @@
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') closeMenu();
       });
+
+      /* ── Apply type tabs ──────────────────────────── */
+      const tabs = document.querySelectorAll('.apply-type-tab');
+      const panels = document.querySelectorAll('.apply-panel');
+
+      const showPanel = (name) => {
+        let matched = false;
+        panels.forEach(panel => {
+          const isMatch = panel.dataset.panel === name;
+          panel.hidden = !isMatch;
+          if (isMatch) matched = true;
+        });
+        if (!matched) return;
+        tabs.forEach(tab => {
+          const isActive = tab.dataset.panel === name;
+          tab.classList.toggle('active', isActive);
+          tab.setAttribute('aria-selected', String(isActive));
+        });
+      };
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          showPanel(tab.dataset.panel);
+          history.replaceState(null, '', '#' + tab.dataset.panel);
+        });
+      });
+
+      const initialPanel = window.location.hash.replace('#', '');
+      if (['fellow', 'speaker', 'leader'].includes(initialPanel)) {
+        showPanel(initialPanel);
+      }
 
     }());
   </script>
