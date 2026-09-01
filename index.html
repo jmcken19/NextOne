@@ -279,33 +279,89 @@
 
     /* ─── HERO ────────────────────────────────────── */
     #hero {
-      min-height: 100vh;
+      height: 100vh;
+      min-height: 600px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: calc(var(--nav-h) + 56px) 0 88px;
+      padding: 0;
       position: relative;
       overflow: hidden;
+      background: url('./assets/hero-poster.jpg') center/cover no-repeat;
+      background-color: #0d1422;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
     }
     #hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 80% 55% at 50% 25%, rgba(26, 61, 143, 0.055) 0%, transparent 68%);
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
       pointer-events: none;
     }
-    #hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 1px;
-      background: var(--border);
-    }
+    #hero::after { display: none; }
     .hero-inner {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       width: 100%;
+      padding-top: calc(var(--nav-h) + 16px);
+      padding-bottom: 80px;
+    }
+
+    /* Hero text: white over dark video */
+    #hero .hero-headline { color: #ffffff; }
+    #hero .hero-headline .accent { color: #ffffff; }
+    #hero .hero-subtitle { color: rgba(255, 255, 255, 0.76); }
+    #hero .trust-item { color: rgba(255, 255, 255, 0.5); }
+    #hero .trust-divider { background: rgba(255, 255, 255, 0.2); }
+
+    /* Ghost outline button for dark background */
+    .btn-hero-outline {
+      background: transparent;
+      color: #ffffff;
+      border: 2px solid rgba(255, 255, 255, 0.46);
+    }
+    .btn-hero-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.82);
+      transform: translateY(-2px);
+    }
+    .btn-hero-outline:active {
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(0);
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: rgba(255, 255, 255, 0.4);
+      display: flex;
+      transition: color 0.2s ease;
+      animation: heroScrollBounce 2.4s ease-in-out infinite;
+    }
+    .hero-scroll:hover { color: rgba(255, 255, 255, 0.82); }
+    @keyframes heroScrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      55%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* Reduced motion: hide video, pause scroll arrow */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-video { display: none; }
+      .hero-scroll { animation: none; }
     }
 
     .hero-eyebrow {
@@ -872,17 +928,20 @@
 
   <!-- ░░ HERO ░░ -->
   <section id="hero" aria-label="Hero">
+    <video class="hero-video" autoplay muted loop playsinline poster="./assets/hero-poster.jpg" aria-hidden="true">
+      <source src="./assets/hero.mp4" type="video/mp4">
+    </video>
     <div class="container">
       <div class="hero-inner">
         <h1 class="hero-headline" id="h-head">
-          The <span style="color: var(--accent);">NextOne</span> is all that counts.
+          The <span class="accent">NextOne</span> is what counts.
         </h1>
         <p class="hero-subtitle" id="h-sub">
           A fellowship for collegiate club athletes building confidence for every job application, interview, and networking conversation.
         </p>
         <div class="hero-buttons" id="h-btns">
-          <a href="apply.html" class="btn btn-primary">Apply to Cohort 1</a>
-          <a href="#about" class="btn btn-outline">Learn More</a>
+          <a href="apply.html" class="btn btn-white">Apply to Cohort 1</a>
+          <a href="#about" class="btn btn-hero-outline">Learn More</a>
         </div>
         <div class="hero-trust" id="h-trust">
           <span class="trust-item">Fully Remote</span>
@@ -891,6 +950,11 @@
         </div>
       </div>
     </div>
+    <a href="#about" class="hero-scroll" aria-label="Scroll down">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </a>
   </section>
 
   <!-- ░░ ABOUT ░░ -->
@@ -973,7 +1037,7 @@
   <section id="apply-cta" aria-labelledby="cta-heading">
     <div class="container">
       <h2 class="section-heading" id="cta-heading">NextOne</h2>
-      <p class="cta-body">Applications for Cohort 1 are opening soon. A small cohort of collegiate club athletes will be selected. Free to apply, free to participate.</p>
+      <p class="cta-body">Applications for Cohort 1 are opening soon. A small cohort of collegiate club athletes will be selected. Free to apply, free to&nbsp;participate.</p>
       <a href="apply.html" class="btn btn-white" style="padding:16px 42px;font-size:16px;">Apply Now</a>
       <p class="cta-note">Cohort 1 runs September – November 2026</p>
     </div>
