@@ -305,6 +305,9 @@
     .hero-video.is-playing {
       opacity: 1;
     }
+    .hero-video.is-playing.loop-fade {
+      opacity: 0;
+    }
     #hero::before {
       content: '';
       position: absolute;
@@ -1138,12 +1141,25 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
 
-      /* ── Hero video fade-in ───────────────────────── */
+      /* ── Hero video fade-in + seamless loop ──────── */
       const heroVideo = document.querySelector('.hero-video');
       if (heroVideo) {
         heroVideo.addEventListener('playing', () => {
           heroVideo.classList.add('is-playing');
         }, { once: true });
+
+        let looping = false;
+        heroVideo.addEventListener('timeupdate', () => {
+          if (!heroVideo.duration) return;
+          const remaining = heroVideo.duration - heroVideo.currentTime;
+          if (remaining <= 1.5 && !looping) {
+            looping = true;
+            heroVideo.classList.add('loop-fade');
+          } else if (heroVideo.currentTime < 0.5 && looping) {
+            looping = false;
+            heroVideo.classList.remove('loop-fade');
+          }
+        });
       }
 
       /* ── Hamburger / mobile menu ──────────────────── */
