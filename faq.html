@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAQ — NextOne Fellowship</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+  <link rel="icon" type="image/png" href="n1.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -128,6 +128,9 @@
     }
 
     .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
       font-family: 'Sora', sans-serif;
       font-weight: 700;
       font-size: 17px;
@@ -138,6 +141,11 @@
     .nav-logo em {
       color: var(--accent);
       font-style: normal;
+    }
+    .nav-logo-mark {
+      height: 26px;
+      width: auto;
+      display: block;
     }
 
     .nav-right {
@@ -351,12 +359,23 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
     .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-family: 'Sora', sans-serif;
       font-weight: 700;
       font-size: 17px;
       color: var(--white);
       margin-bottom: 14px;
       letter-spacing: -0.02em;
+    }
+    .footer-logo-mark {
+      height: 24px;
+      width: auto;
+      display: block;
+      border-radius: 5px;
+      background: var(--white);
+      padding: 3px;
     }
     .footer-tagline {
       font-size: 15px;
@@ -457,7 +476,7 @@
   <!-- ░░ NAV ░░ -->
   <nav id="nav" role="navigation" aria-label="Main navigation">
     <div class="container">
-      <a href="index.html" class="nav-logo">NextOne <em>Fellowship</em></a>
+      <a href="index.html" class="nav-logo"><img src="n1.png" alt="" class="nav-logo-mark">NextOne <em>Fellowship</em></a>
       <div class="nav-right">
         <ul class="nav-links">
           <li><a href="index.html#about">About</a></li>
@@ -619,7 +638,7 @@
       <div class="footer-top">
 
         <div class="footer-left">
-          <div class="footer-logo">NextOne Fellowship</div>
+          <div class="footer-logo"><img src="n1.png" alt="" class="footer-logo-mark">NextOne Fellowship</div>
           <p class="footer-tagline">The NextOne is what counts.</p>
         </div>
 
