@@ -511,9 +511,17 @@
     #how-it-works {
       position: relative;
       z-index: 1;
-      background: #f0eeeb;
+      background: #f0eeeb url('./scene1.jpg') center / cover no-repeat;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+    }
+    #how-it-works::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(240, 238, 235, 0.88);
+      z-index: -1;
+      pointer-events: none;
     }
 
     .section-center {
