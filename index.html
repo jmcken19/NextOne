@@ -384,7 +384,10 @@
     }
 
     @media (max-width: 768px) {
-      #hero { height: auto; min-height: 480px; }
+      /* No sticky "slide-over" effect on phones: the hero scrolls away normally,
+         so it can't peek through when the browser toolbar shows/hides. */
+      #hero { position: relative; height: auto; min-height: 480px; }
+      #about { border-radius: 0; box-shadow: none; }
 
       .hero-buttons { flex-direction: column; }
       .hero-buttons .btn { width: 100%; }
@@ -626,6 +629,14 @@ In volleyball, the game moves fast. Whether you just won or just lost, the only 
       const video = document.querySelector('.hero-video');
       if (!video) return;
       video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });
+
+      /* Pause the video while the hero is off screen to save battery and data */
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) video.play().catch(() => {});
+          else video.pause();
+        }).observe(video);
+      }
       let fading = false;
       video.addEventListener('timeupdate', () => {
         if (!video.duration) return;
