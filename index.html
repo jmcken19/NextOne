@@ -73,6 +73,9 @@
     }
     .hero-video.is-playing { opacity: 1; }
     .hero-video.is-playing.loop-fade { opacity: 0; }
+    /* Once the About card fully covers the hero, hide it so it can never
+       peek through further down the page (e.g. when scrolling back up on phones) */
+    #hero.is-covered { visibility: hidden; }
     #hero::before {
       content: '';
       position: absolute;
@@ -384,10 +387,7 @@
     }
 
     @media (max-width: 768px) {
-      /* No sticky "slide-over" effect on phones: the hero scrolls away normally,
-         so it can't peek through when the browser toolbar shows/hides. */
-      #hero { position: relative; height: auto; min-height: 480px; }
-      #about { border-radius: 0; box-shadow: none; }
+      #hero { height: auto; min-height: 480px; }
 
       .hero-buttons { flex-direction: column; }
       .hero-buttons .btn { width: 100%; }
@@ -630,13 +630,23 @@ In volleyball, the game moves fast. Whether you just won or just lost, the only 
       if (!video) return;
       video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });
 
-      /* Pause the video while the hero is off screen to save battery and data */
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver(([entry]) => {
-          if (entry.isIntersecting) video.play().catch(() => {});
-          else video.pause();
-        }).observe(video);
-      }
+      /* Hide + pause the hero once the About section has slid fully over it */
+      const hero = document.getElementById('hero');
+      const about = document.getElementById('about');
+      let covered = false, ticking = false;
+      const update = () => {
+        ticking = false;
+        const nowCovered = about.getBoundingClientRect().top <= 0;
+        if (nowCovered === covered) return;
+        covered = nowCovered;
+        hero.classList.toggle('is-covered', covered);
+        if (covered) video.pause();
+        else video.play().catch(() => {});
+      };
+      const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      update();
       let fading = false;
       video.addEventListener('timeupdate', () => {
         if (!video.duration) return;
